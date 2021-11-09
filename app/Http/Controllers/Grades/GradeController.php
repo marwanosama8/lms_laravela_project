@@ -43,7 +43,15 @@ class GradeController extends Controller
   public function store(StoreGrade $request)
   {
     
-    
+     // cheacking if the requst Name ('en' and 'ar') not have same value in database
+
+      if (Grade::where('Name->ar', $request->Name)->orWhere('Name->en',$request->Name_en)->exists()) {
+
+          return redirect()->back()->withErrors(trans('Grades_trans.exists'));
+      }
+
+
+
     // making new object from GradeModel to pass in it the requst validation we recive it after validate it in the StoreGrade ( new in laraevel 8.0x)
     
     try{
@@ -101,9 +109,23 @@ class GradeController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function update($id)
+  public function update(StoreGrade $request)
   {
-    
+    try {
+      $validated = $request->validated();
+
+      $Grades = Grade::findOrFail($request->id);
+
+      $Grades->update([
+        $Grades->Name = ['ar' => $request->Name, 'en' => $request->Name_en],
+        $Grades->Notes = $request->Notes
+      ]);
+
+    toastr()->success(trans('messages.success'),trans('messages.Update'));
+    return redirect()->route('Grades.index');
+    } catch (Exception $e) {
+      return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+    }
   }
 
   /**
@@ -112,9 +134,11 @@ class GradeController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy(Request $request)
   {
-    
+    $Grades = Grade::findOrFail($request->id)->delete();
+    toastr()->success(trans('messages.success'),trans('messages.Delete'));
+    return redirect()->route('Grades.index');
   }
   
 }
