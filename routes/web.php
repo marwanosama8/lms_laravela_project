@@ -29,17 +29,22 @@ Route::group(
 [
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath','auth' ]
-], function(){ 
+],  function(){ 
 
-        // Route::get('/', function()
-        // {
-        //     return view('home');
-        // });
-
+    // *******************Dashboard********************
+      
         Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+    
+    // *******************Grades********************
         
         Route::group(['namespace' => 'Grades'], function() {
                 Route::resource('Grades', 'GradeController');
+        });
+    // *******************Classrooms********************
+
+
+        Route::group(['namespace' => 'Classrooms'], function() {
+                Route::resource('Classrooms', 'ClassroomController');
         });
 
 
