@@ -60,56 +60,48 @@ class ClassroomController extends Controller
     }
 
 
-
-
-    
   }
 
 
-  /**
-   * Display the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function show($id)
-  {
-    
-  }
+ 
+  public function update(StoreClassrooms $request)
+      {
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function edit($id)
-  {
-    
-  }
+        try {
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function update($id)
-  {
-    
-  }
+            $Classroom = Classroom::findOrFail($request->id);
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param  int  $id
-   * @return Response
-   */
-  public function destroy($id)
+            $Classroom->update([
+
+                $Classroom->Name_Class = ['ar' => $request->Name, 'en' => $request->Name_en],
+                $Classroom->Grade_id = $request->Grade_id,
+            ]);
+            toastr()->success(trans('messages.Update'));
+            return redirect()->route('Classrooms.index');
+        }
+
+        catch
+        (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+
+
+    }
+
+
+   public function destroy(Request $request)
   {
-    
+    $Classroom = Classroom::findOrFail($request->id);
+    $Classroom->delete();
+    toastr()->success(trans('messages.Delete'));
+    return redirect()->route('Classrooms.index');
   }
   
+
+
+
 }
 
+
+ 
 ?>
