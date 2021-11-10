@@ -8,6 +8,7 @@ return [
     'change_language'=>'language',
     'Grades'=>'Grades',
     'Grades_list'=>'Grades List',
+    'List_classes'=>'Classrooms List',
     'classes'=>'Classes',
     'sections'=>'Sections',
     'students'=>'Students',
