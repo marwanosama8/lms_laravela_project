@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Grades;
 
 use App\Http\Controllers\Controller;
-use App\Models\Grade;
 use App\Http\Requests\StoreGrade;
-
+use App\Models\Classroom;
+use App\Models\Grade;
 use Illuminate\Http\Request;
 
 class GradeController extends Controller 
@@ -135,9 +135,28 @@ class GradeController extends Controller
    */
   public function destroy(Request $request)
   {
-    $Grades = Grade::findOrFail($request->id)->delete();
-    toastr()->success(trans('messages.Delete'),trans('messages.title'));
-    return redirect()->route('Grades.index');
+    
+    // ********here we are cheacking if there is classroom realted to Grade.
+    // if it is exist we can't delete the Grade, so we make a condition to check
+    // if it exist or not***********
+
+    $myClassId = Classroom::where('Grade_id',$request->id)->pluck('Grade_id'); // this vaiable return with number of Grade_id exist in Classroom Model.
+
+    if ($myClassId->count() == 0) {
+      $Grades = Grade::findOrFail($request->id)->delete();
+      toastr()->error(trans('messages.Delete'),trans('messages.title'));
+      return redirect()->route('Grades.index');    
+      } 
+
+      else {
+        toastr()->warning(trans('messages.exist'),trans('messages.title'));
+        return redirect()->route('Grades.index');
+      }
+    
+
+
+
+    
   }
   
 }

@@ -98,7 +98,26 @@ class ClassroomController extends Controller
   }
   
 
+    public function delete_all(Request $request)
+    {
+        $delete_all_id = explode(",", $request->delete_all_id);
 
+        Classroom::whereIn('id', $delete_all_id)->Delete();
+        toastr()->error(trans('messages.Delete'));
+        return redirect()->route('Classrooms.index');
+    }
+    
+
+    public function Filter_Classes(Request $request)
+    {
+      $Grades = Grade::all();
+      
+      // ****here we filter and returning all Grade_id thats selected from the Modal
+      $Search = Classroom::select('*')->where('Grade_id', '=' ,$request->Grade_id)->get();
+
+
+      return view('pages.My_Classes.My_Classes',compact('Grades'))->withDetails($Search);
+    }
 
 }
 
