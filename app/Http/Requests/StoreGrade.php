@@ -31,6 +31,7 @@ class StoreGrade extends FormRequest
     {
         return [
         'Name' => 'required',
+        'Notes'=> 'nullable',
         ];
     }
     public function messages()

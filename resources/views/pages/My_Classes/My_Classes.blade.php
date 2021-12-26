@@ -301,7 +301,7 @@
 </div>
 
 
-<!-- حذف مجموعة صفوف -->
+<!-- ﺣﺬﻑ ﻣﺠﻤﻮﻋﺔ ﺻﻔﻮﻑ -->
 
 {{-- it has a js function in footer-sripts.js --}}
 <div class="modal fade" id="delete_all" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

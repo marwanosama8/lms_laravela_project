@@ -43,7 +43,6 @@ class ClassroomController extends Controller
     try {
       $validated = $request->validated();
 
-      
       foreach ($List_Classes as $List_Class) {
         $Classroom = new Classroom;
    

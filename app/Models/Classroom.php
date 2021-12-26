@@ -9,6 +9,8 @@ class Classroom extends Model
 {
 
     use HasTranslations;
+    
+
     public $translatable = ['Name_Class'];
 
     protected $table = 'Classrooms';
