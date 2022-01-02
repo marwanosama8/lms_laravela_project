@@ -1,4 +1,5 @@
 <?php
+namespace App;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +62,12 @@ Route::group(
 
        Route::group(['namespace' => 'Sections'], function() {
             Route::view('add-parent','livewire.show_form');
+        });
+   
+        // *******************Teachers********************
+
+       Route::group(['namespace' => 'Teachers'], function() {
+            Route::resource('Teachers', 'TeacherController');
         });
 
 });

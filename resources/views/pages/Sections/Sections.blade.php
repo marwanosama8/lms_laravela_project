@@ -133,7 +133,7 @@
                                                                                                        class="form-control"
                                                                                                        value="{{ $list_Sections->getTranslation('Name_sections', 'ar') }}">
                                                                                             </div>
-
+                                                                                            
                                                                                             <div class="col">
                                                                                                 <input type="text"
                                                                                                        name="Name_Section_En"

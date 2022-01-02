@@ -22,8 +22,6 @@ class SectionController extends Controller
     public function index()
     {
     $Grades = Grade::with('Sections')->get();
-    
-
     $list_Grades = Grade::all();
 
     return view('pages.Sections.Sections',compact('list_Grades','Grades'));
@@ -124,15 +122,11 @@ class SectionController extends Controller
 
 
 
-
     public function getclasses($id)
     {
         $List_Classes = Classroom::where('Grade_id',$id)->pluck('Name_Class','id');
 
         return $List_Classes;
     }
-
-
-
 
 }
